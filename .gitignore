@@ -35,7 +35,8 @@ env.properties
 *.iws
 out/
 classes/
-gradle/wrapper/gradle-wrapper.properties
+gradle/wrapper/
 .ideaDataSources/
 gradlew
 gradlew.bat
+
