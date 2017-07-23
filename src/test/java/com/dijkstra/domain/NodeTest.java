@@ -4,7 +4,7 @@ import com.dijkstra.enums.NodeType;
 import org.junit.Test;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
-import static org.hamcrest.core.Is.is;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 public class NodeTest {
 

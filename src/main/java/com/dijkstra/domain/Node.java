@@ -34,7 +34,6 @@ public class Node {
     }
 
     public Node setAsInitial() {
-        //Primera duda, es mejor mutar el objeto o regresar uno nuevo?
         return new Node(this.id, NodeType.START);
     }
 
