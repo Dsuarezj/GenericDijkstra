@@ -3,7 +3,6 @@ package com.dijkstra.domain;
 import com.dijkstra.enums.NodeType;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -27,9 +26,9 @@ public class GraphGenerator {
 
     public List<Node> getNeighbors(Node node) {
         getEdges();
-        List <Node> neighborsNode = new ArrayList<>();
+        List<Node> neighborsNode = new ArrayList<>();
         for (Edge edge : edges) {
-            if (edge.getFirstNode().getId().equals(node.getId())){
+            if (edge.getFirstNode().getId().equals(node.getId())) {
                 neighborsNode.add(edge.getSecondNode());
             }
         }
