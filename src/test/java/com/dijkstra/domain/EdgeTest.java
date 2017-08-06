@@ -10,11 +10,13 @@ public class EdgeTest {
 
     @Test
     public void shouldCreateAEdge() {
-        String firstNode = randomAlphabetic(10);
-        String secondNode = randomAlphabetic(10);
+        String idFirstNode = randomAlphabetic(10);
+        String idSecondNode = randomAlphabetic(10);
+        Node firstNode = new Node(idFirstNode);
+        Node secondNode = new Node(idSecondNode);
         int cost = Integer.MAX_VALUE;
 
-        Edge edge = new Edge(firstNode, secondNode, cost);
+        Edge edge = new Edge(idFirstNode, idSecondNode, cost);
 
         assertThat(edge.getFirstNode(), is(firstNode));
         assertThat(edge.getSecondNode(), is(secondNode));
