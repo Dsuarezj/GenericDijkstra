@@ -48,7 +48,7 @@ public class NodeTest {
         String actualNodeId = randomAlphabetic(10);
         Node node = new Node(actualNodeId);
 
-        node.setVisitedNode(true);
+        node.setAsVisitedNode();
 
         assertThat(node.isVisitedNode(), is(true));
     }

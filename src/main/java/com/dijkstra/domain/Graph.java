@@ -7,7 +7,7 @@ import java.util.List;
 public class Graph {
 
     private final List<String> primitiveEdges;
-    private List<Node> nodes;
+    private List<Node> nodes = new ArrayList<>();
 
     public Graph(List<String> primitiveEdges) {
         this.primitiveEdges = primitiveEdges;
@@ -19,7 +19,6 @@ public class Graph {
     }
 
     private void addNodes() {
-        nodes = new ArrayList<>();
         for (String primitiveEdge : primitiveEdges) {
             String[] splitEdge = primitiveEdge.split("::");
             String firstPrimitiveNode = splitEdge[0];

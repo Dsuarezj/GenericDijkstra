@@ -42,8 +42,8 @@ public class Node {
         this.totalCost = totalCost;
     }
 
-    public void setVisitedNode(boolean visitedNode) {
-        this.visitedNode = visitedNode;
+    public void setAsVisitedNode() {
+        this.visitedNode = true;
     }
 
     public boolean isVisitedNode() {

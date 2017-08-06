@@ -12,12 +12,12 @@ public class Edge {
         this.cost = cost;
     }
 
-    public String getFirstNode() {
-        return firstNode;
+    public Node getFirstNode() {
+        return new Node(firstNode);
     }
 
-    public String getSecondNode() {
-        return secondNode;
+    public Node getSecondNode() {
+        return new Node (secondNode);
     }
 
     public int getCost() {
