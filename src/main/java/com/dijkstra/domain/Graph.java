@@ -6,13 +6,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class GraphGenerator {
+public class Graph {
 
     private final List<String> primitiveEdges;
     private List<Edge> edges;
 
-    public GraphGenerator(List<String> primitiveEdges) {
+    public Graph(List<String> primitiveEdges) {
         this.primitiveEdges = primitiveEdges;
+    }
+
+    public List<Edge> getNeighbors(Node node) {
+        getEdges();
+        List<Edge> neighborsEdges = new ArrayList<>();
+        for (Edge edge : edges) {
+            if (edge.getFirstNode().getId().equals(node.getId())) {
+                neighborsEdges.add(edge);
+            }
+        }
+        return neighborsEdges;
     }
 
     public List<Edge> getEdges() {
@@ -24,21 +35,10 @@ public class GraphGenerator {
         return edges;
     }
 
-    public List<Node> getNeighbors(Node node) {
-        getEdges();
-        List<Node> neighborsNode = new ArrayList<>();
-        for (Edge edge : edges) {
-            if (edge.getFirstNode().getId().equals(node.getId())) {
-                neighborsNode.add(edge.getSecondNode());
-            }
-        }
-        return neighborsNode;
-    }
-
     private Edge toEdge(String primitiveEdge) {
         String[] splitEdge = primitiveEdge.split("::");
-        Node firstNode = new Node(splitEdge[0], NodeType.NODE);
-        Node secondNode = new Node(splitEdge[1], NodeType.NODE);
+        Node firstNode = new Node(splitEdge[0]);
+        Node secondNode = new Node(splitEdge[1]);
         int cost = Integer.parseInt(splitEdge[2]);
         return new Edge(firstNode, secondNode, cost);
     }

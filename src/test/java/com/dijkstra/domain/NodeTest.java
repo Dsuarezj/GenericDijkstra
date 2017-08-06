@@ -1,9 +1,9 @@
 package com.dijkstra.domain;
 
-import com.dijkstra.enums.NodeType;
 import org.junit.Test;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
+import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -14,39 +14,55 @@ public class NodeTest {
         String id = randomAlphabetic(10);
         int startingNodeCost = Integer.MAX_VALUE;
 
-        Node node = new Node(id, NodeType.NODE);
+        Node node = new Node(id);
 
         assertThat(node.getId(), is(id));
-        assertThat(node.getNodeType(), is(NodeType.NODE));
         assertThat(node.getTotalCost(), is(startingNodeCost));
-        assertThat(node.getPreviousNode(), is(id));
     }
 
     @Test
-    public void shouldSetInitialNode() {
+    public void shouldSetTotalCost() {
         String id = randomAlphabetic(10);
-        int cost = 0;
-        Node node = new Node(id, NodeType.NODE);
+        int newCost = Integer.parseInt(randomNumeric(3));
+        Node node = new Node(id);
 
-        Node initialNode = node.setAsInitial();
+        node.setTotalCost(newCost);
 
-        assertThat(initialNode.getId(), is(id));
-        assertThat(initialNode.getNodeType(), is(NodeType.START));
-        assertThat(initialNode.getTotalCost(), is(cost));
-        assertThat(initialNode.getPreviousNode(), is(id));
+        assertThat(node.getTotalCost(), is(newCost));
     }
 
     @Test
-    public void shouldSetFinalNode() {
-        String id = randomAlphabetic(10);
-        int cost = Integer.MAX_VALUE;
-        Node node = new Node(id, NodeType.NODE);
+    public void shouldSetPreviousNode() {
+        String actualNodeId = randomAlphabetic(10);
+        String previousNodeId = randomAlphabetic(10);
+        Node node = new Node(actualNodeId);
+        Node previousNode = new Node(previousNodeId);
 
-        Node initialNode = node.setAsFinal();
+        node.setPreviousNode(previousNode);
 
-        assertThat(initialNode.getId(), is(id));
-        assertThat(initialNode.getNodeType(), is(NodeType.FINISH));
-        assertThat(initialNode.getTotalCost(), is(cost));
-        assertThat(initialNode.getPreviousNode(), is(id));
+        assertThat(node.getPreviousNode().getId(), is(previousNode.getId()));
+    }
+
+    @Test
+    public void shouldSetVisitedNode() {
+        String actualNodeId = randomAlphabetic(10);
+        Node node = new Node(actualNodeId);
+
+        node.setVisitedNode(true);
+
+        assertThat(node.isVisitedNode(), is(true));
+    }
+
+    @Test
+    public void shouldGetAndSetEdgesOfANode() {
+        String actualNodeId = randomAlphabetic(10);
+        String neighbourNodeId = randomAlphabetic(10);
+        Node actualNode = new Node(actualNodeId);
+        Node neighbourNode = new Node(neighbourNodeId);
+        Edge edge = new Edge(actualNode, neighbourNode, 30);
+
+        actualNode.addEdge(edge);
+
+        assertThat(actualNode.getEdges().get(0), is(edge));
     }
 }

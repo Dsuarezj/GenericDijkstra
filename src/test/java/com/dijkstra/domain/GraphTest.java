@@ -10,16 +10,16 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
-public class GraphGeneratorTest {
+public class GraphTest {
 
     @Test
     public void shouldCreateAGraphGivenOneEdge() {
         String firstPrimitiveEdge = "A::B::30";
-        Node firstNode = new Node("A", NodeType.NODE);
-        Node secondNode = new Node("B", NodeType.NODE);
+        Node firstNode = new Node("A");
+        Node secondNode = new Node("B");
         Edge expectedEdge = new Edge(firstNode, secondNode, 30);
         List<String> primitiveEdges = Arrays.asList(firstPrimitiveEdge);
-        GraphGenerator graph = new GraphGenerator(primitiveEdges);
+        Graph graph = new Graph(primitiveEdges);
 
         List<Edge> edges = graph.getEdges();
 
@@ -34,11 +34,11 @@ public class GraphGeneratorTest {
     public void shouldCreateAGraphGiveTwoEdges() {
         String firstPrimitiveEdge = "A::B::30";
         String secondPrimitiveEdge = "A::C::5";
-        Node firstNode = new Node("A", NodeType.NODE);
-        Node secondNode = new Node("C", NodeType.NODE);
+        Node firstNode = new Node("A");
+        Node secondNode = new Node("C");
         Edge expectedEdge = new Edge(firstNode, secondNode, 5);
         List<String> primitiveEdges = Arrays.asList(firstPrimitiveEdge, secondPrimitiveEdge);
-        GraphGenerator graph = new GraphGenerator(primitiveEdges);
+        Graph graph = new Graph(primitiveEdges);
 
         List<Edge> edges = graph.getEdges();
 
@@ -54,13 +54,15 @@ public class GraphGeneratorTest {
         String secondPrimitiveEdge = "A::C::5";
         String thirdPrimitiveEdge = "X::Y::5";
         List<String> primitiveEdges = Arrays.asList(firstPrimitiveEdge, secondPrimitiveEdge, thirdPrimitiveEdge);
-        GraphGenerator graph = new GraphGenerator(primitiveEdges);
-        Node initialNode = new Node("A", NodeType.START);
-        Node expectedFirstNode = new Node("B", NodeType.NODE);
-        Node expectedSecondNode = new Node("C", NodeType.NODE);
-        List<Node> expectedNeighbors = Arrays.asList(expectedFirstNode, expectedSecondNode);
+        Graph graph = new Graph(primitiveEdges);
+        Node initialNode = new Node("A");
+        Node expectedFirstNode = new Node("B");
+        Node expectedSecondNode = new Node("C");
+        Edge expectedFirstEdge = new Edge(initialNode, expectedFirstNode, 30);
+        Edge expectedSecondEdge = new Edge(initialNode, expectedSecondNode, 5);
+        List<Edge> expectedNeighbors = Arrays.asList(expectedFirstEdge, expectedSecondEdge);
 
-        List<Node> neighborsNode = graph.getNeighbors(initialNode);
+        List<Edge> neighborsNode = graph.getNeighbors(initialNode);
 
         assertReflectionEquals(expectedNeighbors, neighborsNode);
     }
