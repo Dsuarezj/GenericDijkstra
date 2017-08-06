@@ -56,13 +56,18 @@ public class NodeTest {
     @Test
     public void shouldGetAndSetEdgesOfANode() {
         String actualNodeId = randomAlphabetic(10);
-        String neighbourNodeId = randomAlphabetic(10);
+        String firstNeighbourNodeId = randomAlphabetic(10);
+        String secondNeighbourNodeId = randomAlphabetic(10);
         Node actualNode = new Node(actualNodeId);
-        Node neighbourNode = new Node(neighbourNodeId);
-        Edge edge = new Edge(actualNode, neighbourNode, 30);
+        Edge firstEdge = new Edge(actualNodeId, firstNeighbourNodeId, 30);
+        Edge secondEdge = new Edge(actualNodeId, secondNeighbourNodeId, 30);
 
-        actualNode.addEdge(edge);
+        actualNode.addEdge(firstEdge);
+        actualNode.addEdge(secondEdge);
 
-        assertThat(actualNode.getEdges().get(0), is(edge));
+        assertThat(actualNode.getEdges().get(0), is(firstEdge));
+        assertThat(actualNode.getEdges().get(1), is(secondEdge));
     }
+
+
 }

@@ -1,8 +1,8 @@
 package com.dijkstra.domain;
 
-import com.dijkstra.enums.NodeType;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,17 +17,18 @@ public class GraphTest {
         String firstPrimitiveEdge = "A::B::30";
         Node firstNode = new Node("A");
         Node secondNode = new Node("B");
-        Edge expectedEdge = new Edge(firstNode, secondNode, 30);
+        Edge expectedEdge = new Edge("A", "B", 30);
+        firstNode.addEdge(expectedEdge);
         List<String> primitiveEdges = Arrays.asList(firstPrimitiveEdge);
         Graph graph = new Graph(primitiveEdges);
 
-        List<Edge> edges = graph.getEdges();
+        List<Node> nodes = graph.getNodes();
 
-        assertThat(edges.size(), is(1));
-        assertReflectionEquals(expectedEdge.getFirstNode(), edges.get(0).getFirstNode());
-        assertReflectionEquals(expectedEdge.getSecondNode(), edges.get(0).getSecondNode());
-        assertThat(edges.get(0).getCost(), is(expectedEdge.getCost()));
-
+        assertThat(nodes.size(), is(2));
+        assertReflectionEquals(firstNode, nodes.get(0));
+        assertReflectionEquals(secondNode, nodes.get(1));
+        assertReflectionEquals(expectedEdge, nodes.get(0).getEdges().get(0));
+        assertReflectionEquals(new ArrayList<Edge>(), nodes.get(1).getEdges());
     }
 
     @Test
@@ -35,35 +36,24 @@ public class GraphTest {
         String firstPrimitiveEdge = "A::B::30";
         String secondPrimitiveEdge = "A::C::5";
         Node firstNode = new Node("A");
-        Node secondNode = new Node("C");
-        Edge expectedEdge = new Edge(firstNode, secondNode, 5);
+        Node secondNode = new Node("B");
+        Node thirdNode = new Node("C");
+        Edge expectedABEdge = new Edge("A", "B", 30);
+        Edge expectedACEdge = new Edge("A", "C", 5);
+        firstNode.addEdge(expectedABEdge);
+        firstNode.addEdge(expectedACEdge);
         List<String> primitiveEdges = Arrays.asList(firstPrimitiveEdge, secondPrimitiveEdge);
         Graph graph = new Graph(primitiveEdges);
 
-        List<Edge> edges = graph.getEdges();
+        List<Node> nodes = graph.getNodes();
 
-        assertThat(edges.size(), is(2));
-        assertReflectionEquals(expectedEdge.getFirstNode(), edges.get(1).getFirstNode());
-        assertReflectionEquals(expectedEdge.getSecondNode(), edges.get(1).getSecondNode());
-        assertThat(edges.get(1).getCost(), is(expectedEdge.getCost()));
-    }
-
-    @Test
-    public void shouldReturnTheNeighborsOfANode() {
-        String firstPrimitiveEdge = "A::B::30";
-        String secondPrimitiveEdge = "A::C::5";
-        String thirdPrimitiveEdge = "X::Y::5";
-        List<String> primitiveEdges = Arrays.asList(firstPrimitiveEdge, secondPrimitiveEdge, thirdPrimitiveEdge);
-        Graph graph = new Graph(primitiveEdges);
-        Node initialNode = new Node("A");
-        Node expectedFirstNode = new Node("B");
-        Node expectedSecondNode = new Node("C");
-        Edge expectedFirstEdge = new Edge(initialNode, expectedFirstNode, 30);
-        Edge expectedSecondEdge = new Edge(initialNode, expectedSecondNode, 5);
-        List<Edge> expectedNeighbors = Arrays.asList(expectedFirstEdge, expectedSecondEdge);
-
-        List<Edge> neighborsNode = graph.getNeighbors(initialNode);
-
-        assertReflectionEquals(expectedNeighbors, neighborsNode);
+        assertThat(nodes.size(), is(3));
+        assertReflectionEquals(firstNode, nodes.get(0));
+        assertReflectionEquals(secondNode, nodes.get(1));
+        assertReflectionEquals(thirdNode, nodes.get(2));
+        assertReflectionEquals(expectedABEdge, nodes.get(0).getEdges().get(0));
+        assertReflectionEquals(expectedACEdge, nodes.get(0).getEdges().get(1));
+        assertReflectionEquals(new ArrayList<Edge>(), nodes.get(1).getEdges());
+        assertReflectionEquals(new ArrayList<Edge>(), nodes.get(2).getEdges());
     }
 }
