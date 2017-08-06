@@ -1,6 +1,8 @@
 package com.dijkstra.domain;
 
 import com.dijkstra.enums.NodeType;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +25,6 @@ public class Node {
     public String getId() {
         return id;
     }
-
 
     public int getTotalCost() {
         return totalCost;
@@ -55,5 +56,25 @@ public class Node {
 
     public List<Edge> getEdges() {
         return this.edges;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Node node = (Node) o;
+
+        return new EqualsBuilder()
+                .append(id, node.id)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(id)
+                .toHashCode();
     }
 }

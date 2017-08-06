@@ -1,6 +1,5 @@
 package com.dijkstra.domain;
 
-import com.dijkstra.enums.NodeType;
 import org.junit.Test;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
@@ -11,8 +10,8 @@ public class EdgeTest {
 
     @Test
     public void shouldCreateAEdge() {
-        Node firstNode = new Node(randomAlphabetic(10));
-        Node secondNode = new Node(randomAlphabetic(10));
+        String firstNode = randomAlphabetic(10);
+        String secondNode = randomAlphabetic(10);
         int cost = Integer.MAX_VALUE;
 
         Edge edge = new Edge(firstNode, secondNode, cost);
