@@ -2,42 +2,58 @@ package com.dijkstra.domain;
 
 import com.dijkstra.enums.NodeType;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Node {
-
     private String id;
-    private NodeType nodeType;
-    private int totalCost;
-    private String previousNode;
 
-    public Node(String id, NodeType nodeType) {
+    private int totalCost;
+    private Node previousNode;
+    private boolean visitedNode;
+    private List<Edge> edges;
+
+    public Node(String id) {
         this.id = id;
-        this.nodeType = nodeType;
-        //Otra duda, el objeto debería contener la lógica de poner el costo para le nodo inicial?
-        this.totalCost = nodeType == NodeType.START ? 0 : Integer.MAX_VALUE;
-        this.previousNode = id;
+        this.totalCost = Integer.MAX_VALUE;
+        this.visitedNode = false;
+        this.edges = new ArrayList<>();
     }
 
     public String getId() {
         return id;
     }
 
-    public NodeType getNodeType() {
-        return nodeType;
-    }
 
     public int getTotalCost() {
         return totalCost;
     }
 
-    public String getPreviousNode() {
+    public Node getPreviousNode() {
         return previousNode;
     }
 
-    public Node setAsInitial() {
-        return new Node(this.id, NodeType.START);
+    public void setPreviousNode(Node previousNode) {
+        this.previousNode = previousNode;
     }
 
-    public Node setAsFinal() {
-        return new Node(this.id, NodeType.FINISH);
+    public void setTotalCost(int totalCost) {
+        this.totalCost = totalCost;
+    }
+
+    public void setVisitedNode(boolean visitedNode) {
+        this.visitedNode = visitedNode;
+    }
+
+    public boolean isVisitedNode() {
+        return visitedNode;
+    }
+
+    public void addEdge(Edge edge) {
+        this.edges.add(edge);
+    }
+
+    public List<Edge> getEdges() {
+        return this.edges;
     }
 }

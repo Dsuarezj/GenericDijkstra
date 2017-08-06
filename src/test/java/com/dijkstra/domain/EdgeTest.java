@@ -11,8 +11,8 @@ public class EdgeTest {
 
     @Test
     public void shouldCreateAEdge() {
-        Node firstNode = new Node(randomAlphabetic(10), NodeType.NODE);
-        Node secondNode = new Node(randomAlphabetic(10), NodeType.NODE);
+        Node firstNode = new Node(randomAlphabetic(10));
+        Node secondNode = new Node(randomAlphabetic(10));
         int cost = Integer.MAX_VALUE;
 
         Edge edge = new Edge(firstNode, secondNode, cost);
