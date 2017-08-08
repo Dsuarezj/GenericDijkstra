@@ -22,11 +22,15 @@ public class Node {
         this.edges = new ArrayList<>();
     }
 
+    public Node() {
+
+    }
+
     public String getId() {
         return id;
     }
 
-    public int getTotalCost() {
+    public int getActualTotalCost() {
         return totalCost;
     }
 

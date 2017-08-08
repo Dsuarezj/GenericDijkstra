@@ -34,15 +34,18 @@ public class GraphTest {
     @Test
     public void shouldCreateAGraphGiveTwoEdges() {
         String firstPrimitiveEdge = "A::B::30";
-        String secondPrimitiveEdge = "A::C::5";
+        String secondPrimitiveEdge = "A::C::10";
+        String thirdPrimitiveEdge = "C::B::5";
         Node firstNode = new Node("A");
         Node secondNode = new Node("B");
         Node thirdNode = new Node("C");
         Edge expectedABEdge = new Edge("A", "B", 30);
-        Edge expectedACEdge = new Edge("A", "C", 5);
+        Edge expectedACEdge = new Edge("A", "C", 10);
+        Edge expectedCBEdge = new Edge("C", "B", 5);
         firstNode.addEdge(expectedABEdge);
         firstNode.addEdge(expectedACEdge);
-        List<String> primitiveEdges = Arrays.asList(firstPrimitiveEdge, secondPrimitiveEdge);
+        thirdNode.addEdge(expectedCBEdge);
+        List<String> primitiveEdges = Arrays.asList(firstPrimitiveEdge, secondPrimitiveEdge, thirdPrimitiveEdge);
         Graph graph = new Graph(primitiveEdges);
 
         List<Node> nodes = graph.getNodes();
@@ -54,6 +57,6 @@ public class GraphTest {
         assertReflectionEquals(expectedABEdge, nodes.get(0).getEdges().get(0));
         assertReflectionEquals(expectedACEdge, nodes.get(0).getEdges().get(1));
         assertReflectionEquals(new ArrayList<Edge>(), nodes.get(1).getEdges());
-        assertReflectionEquals(new ArrayList<Edge>(), nodes.get(2).getEdges());
+        assertReflectionEquals(expectedCBEdge, nodes.get(2).getEdges().get(0));
     }
 }

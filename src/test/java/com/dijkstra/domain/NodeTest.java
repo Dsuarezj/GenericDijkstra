@@ -17,7 +17,7 @@ public class NodeTest {
         Node node = new Node(id);
 
         assertThat(node.getId(), is(id));
-        assertThat(node.getTotalCost(), is(startingNodeCost));
+        assertThat(node.getActualTotalCost(), is(startingNodeCost));
     }
 
     @Test
@@ -28,7 +28,7 @@ public class NodeTest {
 
         node.setTotalCost(newCost);
 
-        assertThat(node.getTotalCost(), is(newCost));
+        assertThat(node.getActualTotalCost(), is(newCost));
     }
 
     @Test
