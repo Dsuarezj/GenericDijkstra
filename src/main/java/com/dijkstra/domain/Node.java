@@ -30,7 +30,7 @@ public class Node {
         return id;
     }
 
-    public int getActualTotalCost() {
+    public int getTotalCost() {
         return totalCost;
     }
 

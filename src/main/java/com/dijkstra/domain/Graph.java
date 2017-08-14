@@ -11,14 +11,14 @@ public class Graph {
 
     public Graph(List<String> primitiveEdges) {
         this.primitiveEdges = primitiveEdges;
+        createGraph();
     }
 
     public List<Node> getNodes() {
-        addNodes();
         return nodes;
     }
 
-    private void addNodes() {
+    private void createGraph() {
         for (String primitiveEdge : primitiveEdges) {
             String[] splitEdge = primitiveEdge.split("::");
             String firstPrimitiveNode = splitEdge[0];
@@ -27,20 +27,33 @@ public class Graph {
             Edge edge = new Edge(firstPrimitiveNode, secondPrimitiveNode, cost);
             Node firstNode = new Node(firstPrimitiveNode);
             Node secondNode = new Node(secondPrimitiveNode);
-            addToGraph(firstNode, secondNode, edge);
+            addNodesToGraph(firstNode, secondNode, edge);
         }
     }
 
-    private void addToGraph(Node firstNode, Node secondNode, Edge edge) {
+    private void addNodesToGraph(Node firstNode, Node secondNode, Edge edge) {
+        addFirstNode(firstNode, edge);
+        addSecondNode(secondNode);
+    }
+
+    private void addFirstNode(Node firstNode, Edge edge) {
         if (!nodes.contains(firstNode)){
             firstNode.addEdge(edge);
             nodes.add(firstNode);
         } else {
-            Node updateFirstNode = nodes.get(nodes.indexOf(firstNode));
-            updateFirstNode.addEdge(edge);
+            addEdgeToExistedNode(firstNode, edge);
         }
+    }
+
+    private void addSecondNode(Node secondNode) {
         if (!nodes.contains(secondNode)){
             nodes.add(secondNode);
         }
+    }
+
+    private void addEdgeToExistedNode(Node firstNode, Edge edge) {
+        int index = nodes.indexOf(firstNode);
+        Node node = nodes.get(index);
+        node.addEdge(edge);
     }
 }
