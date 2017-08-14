@@ -21,10 +21,10 @@ public class DijkstraTest {
         Graph graph = new Graph(primitiveEdges);
         Dijkstra dijkstra = new Dijkstra(graph);
 
-        List<Node> shortestPath =  dijkstra.calculateShortestPath(initialNode);
+        List<Node> shortestPath =  dijkstra.calculateShortestPathFromNode(initialNode);
 
         assertThat(shortestPath.get(0).getId(), is(primitiveNode));
-        assertThat(shortestPath.get(0).getActualTotalCost(), is(0));
+        assertThat(shortestPath.get(0).getTotalCost(), is(0));
         assertThat(shortestPath.get(0).getPreviousNode(), is(nullValue()));
     }
 
@@ -37,10 +37,10 @@ public class DijkstraTest {
         Graph graph = new Graph(primitiveEdges);
         Dijkstra dijkstra = new Dijkstra(graph);
 
-        List<Node> shortestPath = dijkstra.calculateShortestPath(initialNode);
+        List<Node> shortestPath = dijkstra.calculateShortestPathFromNode(initialNode);
 
         assertThat(shortestPath.get(1).getId(), is("C"));
-        assertThat(shortestPath.get(1).getActualTotalCost(), is(10));
+        assertThat(shortestPath.get(1).getTotalCost(), is(10));
         assertThat(shortestPath.get(1).getPreviousNode(), is(initialNode));
         assertThat(shortestPath.get(1).isVisitedNode(), is(true));
         assertThat(shortestPath.get(0).isVisitedNode(), is(true));
@@ -74,7 +74,7 @@ public class DijkstraTest {
         Graph graph = new Graph(primitiveEdges);
         Dijkstra dijkstra = new Dijkstra(graph);
 
-        List<Node> shortestPath = dijkstra.calculateShortestPath(initialNode);
+        List<Node> shortestPath = dijkstra.calculateShortestPathFromNode(initialNode);
 
         assertReflectionEquals(expectedNodes, shortestPath);
     }
@@ -103,11 +103,11 @@ public class DijkstraTest {
         Graph graph = new Graph(primitiveEdges);
         Dijkstra dijkstra = new Dijkstra(graph);
 
-        List<Node> shortestPath = dijkstra.calculateShortestPath(initialNode);
+        List<Node> shortestPath = dijkstra.calculateShortestPathFromNode(initialNode);
 
         assertThat(shortestPath.get(0).getId(), is("A"));
-        assertThat(shortestPath.get(0).getActualTotalCost(), is(0));
+        assertThat(shortestPath.get(0).getTotalCost(), is(0));
         assertThat(shortestPath.get(6).getId(), is("G"));
-        assertThat(shortestPath.get(6).getActualTotalCost(), is(37));
+        assertThat(shortestPath.get(6).getTotalCost(), is(37));
     }
 }
