@@ -1,0 +1,12 @@
+package com.dijkstra.controller;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class RouteController {
+    @RequestMapping("/")
+    public String index() {
+        return "Hola!";
+    }
+}
