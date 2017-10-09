@@ -12,6 +12,7 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 
 version = '0.0.1-SNAPSHOT'
@@ -23,8 +24,10 @@ repositories {
 
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-web')
+	compile("org.springframework.boot:spring-boot-starter-web")
 	compile("org.apache.commons:commons-lang3:3.5")
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+	compile("org.projectlombok:lombok:1.16.14")
+	compile ("javax.ws.rs:javax.ws.rs-api:2.0.1")
+	testCompile("org.springframework.boot:spring-boot-starter-test")
 	testCompile("org.unitils:unitils-core:3.4.2")
 }
