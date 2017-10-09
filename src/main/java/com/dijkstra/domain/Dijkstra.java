@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Dijkstra {
 
-    private List<Node> visitNodes = new ArrayList<>();
+    private List<Node> visitedNodes = new ArrayList<>();
     private List<Node> nodes;
 
     public Dijkstra(Graph graph) {
@@ -15,13 +15,13 @@ public class Dijkstra {
     public List<Node> shortestPath(Node initialNode) {
         Node actualNodeWithLowestCost = setInitialNode(initialNode);
 
-        while (visitNodes.size() < nodes.size()) {
+        while (visitedNodes.size() < nodes.size()) {
             analyzedNeighbors(actualNodeWithLowestCost);
             actualNodeWithLowestCost = getNodeWithLowestCost();
             visitNode(actualNodeWithLowestCost);
         }
 
-        return visitNodes;
+        return visitedNodes;
     }
 
     private void analyzedNeighbors(Node actualNode) {
@@ -73,7 +73,7 @@ public class Dijkstra {
 
     private void visitNode(Node node) {
         node.setAsVisitedNode();
-        visitNodes.add(node);
+        visitedNodes.add(node);
     }
 }
 
