@@ -5,52 +5,50 @@ import java.util.List;
 
 public class Dijkstra {
 
-
     private List<Node> visitNodes = new ArrayList<>();
     private List<Node> nodes;
-    private List<Node> analyzedNodes = new ArrayList<>();
 
     public Dijkstra(Graph graph) {
         this.nodes = graph.getNodes();
     }
 
-    public List<Node> calculateShortestPathFromNode(Node node) {
-        Node actualNodeWithLowestCost = setInitialNode(node);
-        int unvisitedNode = nodes.size() - 1;
+    public List<Node> shortestPath(Node initialNode) {
+        Node actualNodeWithLowestCost = setInitialNode(initialNode);
 
-        while (unvisitedNode > 0) {
-            List<Edge> neighborsEdges = actualNodeWithLowestCost.getEdges();
-            if (!neighborsEdges.isEmpty()) {
-                analyzedNeighborsNode(neighborsEdges, actualNodeWithLowestCost);
-            }
-            actualNodeWithLowestCost = getNodeWithLowestCost(analyzedNodes);
+        while (visitNodes.size() < nodes.size()) {
+            analyzedNeighbors(actualNodeWithLowestCost);
+            actualNodeWithLowestCost = getNodeWithLowestCost();
             visitNode(actualNodeWithLowestCost);
-            unvisitedNode--;
         }
 
         return visitNodes;
     }
 
-    private void analyzedNeighborsNode(List<Edge> neighborsEdges, Node actualNode) {
+    private void analyzedNeighbors(Node actualNode) {
+        List<Edge> neighborsEdges = actualNode.getEdges();
+
         for (Edge edge : neighborsEdges) {
-            int indexOfNodeToVisit = nodes.indexOf(edge.getSecondNode());
-            Node nodeToVisit = nodes.get(indexOfNodeToVisit);
+            Node neighborNode = getNodeFromGraph(edge.getSecondNode());
 
-            int costFromActualNode = edge.getCost() + actualNode.getTotalCost();
+            int newCostToNode = edge.getCost() + actualNode.getTotalCost();
 
-            if (costFromActualNode < nodeToVisit.getTotalCost()) {
-                nodeToVisit.setTotalCost(costFromActualNode);
-                nodeToVisit.setPreviousNode(actualNode);
-                analyzedNodes.add(nodeToVisit);
+            if (neighborNode.getTotalCost() > newCostToNode) {
+                neighborNode.setTotalCost(newCostToNode);
+                neighborNode.setPreviousNode(actualNode);
             }
         }
     }
 
-    private Node getNodeWithLowestCost(List<Node> analyzedNodes) {
+    private Node getNodeFromGraph(Node secondNode) {
+        int indexOfNodeToVisit = nodes.indexOf(secondNode);
+        return nodes.get(indexOfNodeToVisit);
+    }
+
+    private Node getNodeWithLowestCost() {
         Node nodeWithLowestCost = new Node();
         int actualCost = Integer.MAX_VALUE;
 
-        for (Node node : analyzedNodes) {
+        for (Node node : nodes) {
             if (node.getTotalCost() < actualCost && !node.isVisitedNode()) {
                 actualCost = node.getTotalCost();
                 nodeWithLowestCost = node;
@@ -67,14 +65,15 @@ public class Dijkstra {
     }
 
     private Node setInitialCost(Node node) {
-        int nodeIndex = nodes.indexOf(node);
-        Node initialNode = nodes.get(nodeIndex);
+        Node initialNode = getNodeFromGraph(node);
         initialNode.setTotalCost(0);
+        initialNode.setPreviousNode(node);
         return initialNode;
     }
 
-    private void visitNode(Node initialNode) {
-        initialNode.setAsVisitedNode();
-        visitNodes.add(initialNode);
+    private void visitNode(Node node) {
+        node.setAsVisitedNode();
+        visitNodes.add(node);
     }
 }
+
