@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
@@ -152,7 +151,7 @@ public class DijkstraTest {
         initialNode.setAsVisitedNode();
         initialNode.addEdge(new Edge(idANode, idBNode, 6));
         initialNode.addEdge(new Edge(idANode, idCNode, 2));
-        List<String> primitiveEdges = Arrays.asList(a1, a3, a4, a5,  a7, a8, a9,  a11, a12, a13,  a15, a16, a17, a18, a18, a19, a20, a21, a22, a23, a24, a25, a26);
+        List<String> primitiveEdges = Arrays.asList(a1, a3, a4, a5, a7, a8, a9, a11, a12, a13, a15, a16, a17, a18, a18, a19, a20, a21, a22, a23, a24, a25, a26);
         Graph graph = new Graph(primitiveEdges);
         Dijkstra dijkstra = new Dijkstra(graph);
 
