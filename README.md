@@ -1,66 +1,63 @@
 # GenericDijkstra
 
-Proyecto académico desarrollado como un ejercicio universitario para encontrar
-caminos más cortos dentro de un grafo. La idea era explorar cómo este tipo de
-algoritmo podría integrarse en un sistema de planificación de rutas para una
-red de buses; este repositorio contiene una implementación inicial y no una
-integración completa con un sistema de transporte.
+Academic project developed as a university exercise to find shortest paths in a
+graph. The idea was to explore how this kind of algorithm could fit into a bus
+network route-planning system; this repository contains an initial
+implementation, not a full integration with a transport system.
 
-Como referencia para el contexto del proyecto:
-[Repositorio Digital EPN: documento de referencia](https://bibdigital.epn.edu.ec/handle/15000/19573).
+Reference for the project context:
+[EPN Digital Repository: reference document](https://bibdigital.epn.edu.ec/handle/15000/19573).
 
-## Funcionalidades
+## Features
 
-- Construye un grafo a partir de una lista de aristas con origen, destino y costo.
-- Calcula costos acumulados desde un nodo inicial mediante el algoritmo de
-  Dijkstra.
-- Conserva en cada nodo el costo encontrado y el nodo previo, información útil
-  para reconstruir una ruta.
-- Incluye una aplicación web Spring Boot con una ruta de bienvenida.
-- Incluye pruebas unitarias para la construcción del grafo y el cálculo de rutas.
+- Builds a graph from a list of edges with origin, destination, and cost.
+- Computes cumulative costs from a start node using Dijkstra's algorithm.
+- Stores each node's found cost and previous node, which is useful for
+  reconstructing a path.
+- Includes a Spring Boot web application with a welcome route.
+- Includes unit tests for graph construction and path calculation.
 
-Las aristas se representan en una sola dirección (`origen -> destino`). Para
-modelar una calle o conexión bidireccional, agrega también la arista inversa.
-Los costos deben ser no negativos, como requiere Dijkstra, y todos los nodos
-deben ser alcanzables desde el nodo inicial: la implementación actual no maneja
-grafos desconectados. La aplicación web actual no ofrece un endpoint para enviar
-grafos o consultar rutas; el algoritmo se utiliza desde las clases Java del
-dominio.
+Edges are represented in one direction (`origin -> destination`). To model a
+bidirectional street or connection, also add the reverse edge. Costs must be
+non-negative, as required by Dijkstra, and every node must be reachable from the
+start node: the current implementation does not handle disconnected graphs. The
+web app does not currently expose an endpoint to submit graphs or query routes;
+the algorithm is used from the Java domain classes.
 
-## Requisitos
+## Requirements
 
 - Java 8
-- Gradle instalado
+- Gradle installed
 
-El proyecto no incluye Gradle Wrapper, por lo que los comandos `gradle` requieren
-una instalación local de Gradle.
+The project does not include a Gradle Wrapper, so `gradle` commands require a
+local Gradle installation.
 
-## Ejecutar la aplicación
+## Run the application
 
-Desde la raíz del proyecto:
+From the project root:
 
 ```bash
 gradle bootRun
 ```
 
-Cuando la aplicación haya iniciado, visita [http://localhost:8080/](http://localhost:8080/)
-o ejecuta:
+Once the application has started, visit [http://localhost:8080/](http://localhost:8080/)
+or run:
 
 ```bash
 curl http://localhost:8080/
 ```
 
-La respuesta actual es:
+The current response is:
 
 ```text
 Hola!
 ```
 
-## Usar el algoritmo desde Java
+## Use the algorithm from Java
 
-Cada arista se entrega como una cadena con el formato
-`origen::destino::costo`. Por ejemplo, este grafo tiene una ruta más económica
-de `A` a `B` pasando por `C` (costo total 15, en lugar de 30):
+Each edge is provided as a string in the format `origin::destination::cost`. For
+example, this graph has a cheaper path from `A` to `B` via `C` (total cost 15
+instead of 30):
 
 ```java
 import com.dijkstra.domain.Dijkstra;
@@ -70,32 +67,32 @@ import com.dijkstra.domain.Node;
 import java.util.Arrays;
 import java.util.List;
 
-List<String> aristas = Arrays.asList(
+List<String> edges = Arrays.asList(
     "A::B::30",
     "A::C::10",
     "C::B::5"
 );
 
-Graph grafo = new Graph(aristas);
-Dijkstra dijkstra = new Dijkstra(grafo);
-List<Node> nodosVisitados = dijkstra.shortestPath(new Node("A"));
+Graph graph = new Graph(edges);
+Dijkstra dijkstra = new Dijkstra(graph);
+List<Node> visitedNodes = dijkstra.shortestPath(new Node("A"));
 ```
 
-El resultado contiene los nodos en el orden en que se visitaron. Cada nodo
-incluye `getTotalCost()` para consultar su costo acumulado y
-`getPreviousNode()` para seguir los nodos previos y reconstruir el camino.
-El formato de arista requiere exactamente tres partes separadas por `::`.
+The result contains the nodes in visit order. Each node includes
+`getTotalCost()` for its cumulative cost and `getPreviousNode()` to follow
+previous nodes and rebuild the path. The edge format requires exactly three
+parts separated by `::`.
 
-## Ejecutar las pruebas
+## Run the tests
 
 ```bash
 gradle test
 ```
 
-Las pruebas existentes verifican la creación de nodos y aristas, y varios
-ejemplos de cálculo de caminos mínimos.
+Existing tests cover node and edge creation, plus several shortest-path
+examples.
 
-## Tecnologías
+## Technologies
 
 - Java 8
 - Spring Boot 1.5
